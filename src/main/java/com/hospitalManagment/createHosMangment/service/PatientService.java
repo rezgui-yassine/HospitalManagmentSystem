@@ -29,7 +29,28 @@ public Patients getPatientById(Integer id){
     public List<Patients> getAllPatients(){
       return patientRepo.findAll();
     }
-    // update patient
+    // delete Patient by id
+    public String deletePatientById(Integer id ){
+      patientRepo.deleteById(id);
+        return "Patient deleted successfully";
+    }
+
+    // update patient by id
+     public Patients updatePatientById(Integer id , Patients patients){
+        Patients existingPatient = patientRepo.findById(id).orElseThrow(()-> new RuntimeException("Patient not found"));
+
+        existingPatient.setFirstname(patients.getFirstname());
+        existingPatient.setLastname((patients.getLastname()));
+        existingPatient.setEmail((patients.getEmail()));
+        existingPatient.setPassword((patients.getPassword()));
+        existingPatient.setDateOfBirth((patients.getDateOfBirth()));
+        return patientRepo.save(existingPatient);
+     }
+
+     //get Patients by Name
+    public List <Patients> getPatientsByName(String name){
+        return patientRepo.findByFirstname(name);
+    }
 
 
 
