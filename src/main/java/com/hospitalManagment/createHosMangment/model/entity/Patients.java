@@ -2,8 +2,12 @@ package com.hospitalManagment.createHosMangment.model.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -12,6 +16,9 @@ import java.util.Date;
 @Entity
 @Table(name = "patients")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 
 public class Patients {
     @Id
@@ -43,14 +50,16 @@ public class Patients {
     )
     private String password;
     private Date dateOfBirth;
+    @CreationTimestamp
     @Column(name = "created_at",
-            nullable = false,
+
             updatable = false
     )
     private LocalDateTime createdAt;
     @Column(name = "update_at",
            insertable = false
     )
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
     private String phone;
 }
